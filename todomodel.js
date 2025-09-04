@@ -1,5 +1,5 @@
 // todoModel.js
-const mongoose = require('./db'); // import DB connection
+const mongoose = require('./todomongo'); // import DB connection
 // Define Todo schema
 const todoSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -8,4 +8,5 @@ const todoSchema = new mongoose.Schema({
 });
 // Create Todo model
 const Todo = mongoose.model('Todo', todoSchema);
+
 module.exports = Todo;
