@@ -5,14 +5,12 @@ const Todo = require('./todoModel'); // import Todo model
 
 const app = express();
 const port = 4000;
-
 app.use(bodyParser.json());
-
-// Root route
+//route
 app.get('/', (req, res) => {
   res.send("<h1>Welcome to My Todo API</h1><h3>CRUD operations for Todo tasks</h3>");
 });
-// Create a new Todo
+//POST
 app.post('/todo', async (req, res) => {
   console.log(req.body);
   try {
@@ -24,12 +22,12 @@ app.post('/todo', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-// Get all Todos
+//GET
 app.get('/todo', async (req, res) => {
   const todos = await Todo.find();
   res.json(todos);
 });
-// Get a Todo by ID
+// GET by ID
 app.get('/todo/:id', async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
@@ -39,7 +37,7 @@ app.get('/todo/:id', async (req, res) => {
     res.status(400).json({ error: "Invalid ID format" });
   }
 });
-// Update all Todos
+// PUT all
 app.put('/todo', async (req, res) => {
   try {
     const { title, description, completed } = req.body;
@@ -49,7 +47,7 @@ app.put('/todo', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-// Update a Todo by ID
+//PUT by ID
 app.put('/todo/:id', async (req, res) => {
   try {
     const { title, description, completed } = req.body;
@@ -64,7 +62,7 @@ app.put('/todo/:id', async (req, res) => {
     res.status(400).json({ error: "Invalid ID format" });
   }
 });
-// Delete a Todo by ID
+// DELETE by ID
 app.delete('/todo/:id', async (req, res) => {
   try {
     const todo = await Todo.findByIdAndDelete(req.params.id);
@@ -74,7 +72,7 @@ app.delete('/todo/:id', async (req, res) => {
     res.status(400).json({ error: "Invalid ID format" });
   }
 });
-// Delete all Todos
+// DELETE all
 app.delete('/todo', async (req, res) => {
   try {
     await Todo.deleteMany({});
@@ -86,4 +84,5 @@ app.delete('/todo', async (req, res) => {
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
+
 });
