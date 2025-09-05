@@ -15,9 +15,7 @@ app.use(bodyParser.json());
 
 // JWT secret (use .env in production)
 const JWT_SECRET = "mysecretkey";
-
-// ------------------- Authentication Routes -------------------
-
+//  Authentication Routes
 // Register
 app.post('/register', async (req, res) => {
   try {
@@ -70,7 +68,7 @@ app.get('/profile', authMiddleware, async (req, res) => {
   res.json({ message: `Welcome ${req.user.email}, this is your profile page.` });
 });
 
-// ------------------- Todo CRUD Routes -------------------
+//  Todo CRUD Routes 
 
 // Create Todo
 app.post('/todo', authMiddleware, async (req, res) => {
@@ -84,7 +82,7 @@ app.post('/todo', authMiddleware, async (req, res) => {
   }
 });
 
-// Get all Todos for logged-in user
+// Get all Todos 
 app.get('/todo', authMiddleware, async (req, res) => {
   const todos = await Todo.find({ userId: req.user.id });
   res.json(todos);
@@ -101,7 +99,7 @@ app.get('/todo/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// Update Todo
+// Update Todo by id
 app.put('/todo/:id', authMiddleware, async (req, res) => {
   try {
     const { title, description, completed } = req.body;
@@ -132,5 +130,6 @@ app.delete('/todo/:id', authMiddleware, async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
 
 
